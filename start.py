@@ -35,7 +35,7 @@ class Scrapper():
             self._last_url_seen = url
         time.sleep(0.2)
 
-    def get_content_from_multiple_pages(self, pages, type='normal'):
+    def get_content_from_multiple_pages(self, pages, type='multi'):
             self.pages = pages
             pages = ['https://igg-games.com/page/{}'.format(i) for i in range(1, pages+1)]
             if type == 'normal':
@@ -79,8 +79,12 @@ class Scrapper():
                 f.write(str(i) + '\n')
 
     def run(self, mode='scan page'):
+        """
+        'scan page' - scan a page and save all links in a file
+        'sort content' - sort content from a file
+        """
         if mode == 'scan page':
-            scrapper.get_content_from_multiple_pages(pages=3000, type='multi')
+            scrapper.get_content_from_multiple_pages(pages=50, type='multi')
             scrapper.save_in_file()
         if mode ==  'sort content':
             scrapper.get_content_by_categories(categories=['Adventure'], type='all')
