@@ -89,6 +89,26 @@ class Scrapper():
         if mode ==  'sort content':
             scrapper.get_content_by_categories(categories=['Adventure'], type='all')
 
+    def show_genres(self):
+        string = """
+        Action, Adult, Adventure, Anime,
+        Building,
+        Casual,
+        Eroge,
+        Hack and Slash, Hidden Object, Horror,
+        Management, Mature,
+        Nudity,
+        Open World / Sandbox,
+        Point & Click, Puzzle,
+        Racing, RPG, RTS,
+        Sci-fi, Shooter, Simulation, Sport, Strategy, Survival,
+        Text-Based, Tower Defense, Turn-Based,
+        Visual Novel,
+        """
+        
+        print(string)
+
+
 if __name__ == "__main__":
     scrapper = Scrapper()
     scrapper.run(mode='sort content')
