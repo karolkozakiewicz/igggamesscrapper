@@ -45,9 +45,13 @@ class Scrapper():
                 with ThreadPoolExecutor(max_workers=4) as pool:
                     pool.map(self.get_content, pages)
 
+    def save_in_file(self):
+        with open(f"save-{datetime.datetime.now().strftime('%Y-%m-%d--%H-%M-%S')}.txt", 'a') as f:
+            for i in self.all_content:
+                f.write(str(i) + '\n')
+
     def get_content_by_categories(self, categories:list, type='any'):
         categories = [category.lower() for category in categories]
-        categories_txt = '-'.join(categories)
         output = []
         with open('list.txt', 'r') as f:
             txt_list = f.read().splitlines()
@@ -74,17 +78,17 @@ class Scrapper():
             for i in output:
                 f.write(str(i) + '\n')
 
-    def save_in_file(self):
-        with open(f"save-{datetime.datetime.now().strftime('%Y-%m-%d--%H-%M-%S')}.txt", 'a') as f:
-            for i in self.all_content:
-                f.write(str(i) + '\n')
+    def run(self, mode='scan page'):
+        if mode == 'scan page':
+            scrapper.get_content_from_multiple_pages(pages=3000, type='multi')
+            scrapper.save_in_file()
+        if mode ==  'sort content':
+            scrapper.get_content_by_categories(categories=['Adventure'], type='all')
 
 if __name__ == "__main__":
     scrapper = Scrapper()
-    # scrapper.get_content_from_multiple_pages(pages=3000, type='multi')
-    # scrapper.save_in_file()
-    scrapper.get_content_by_categories(categories=['Adventure'], type='all')
-    # test()
+    scrapper.run(mode='sort content')
+ 
 
 
 
